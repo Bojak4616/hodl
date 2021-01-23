@@ -1,0 +1,6 @@
+include
+lib
+bin
+pyvenv.cfg
+share/
+lib64

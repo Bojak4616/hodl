@@ -1,0 +1,16 @@
+version: '3'
+services:
+  geth:
+    image: ethereum/client-go
+    container_name: geth
+    volumes: 
+      - ./eth_data:/root/.ethereum
+    entrypoint: ["geth", "--ipcdisable", "--nousb", "--allow-insecure-unlock", "--syncmode", "light", "--ropsten", "--ws", "--ws.addr", "0.0.0.0", "--ws.origins", "'*'", "--unlock", "0x84b42d5fd6b735490ae8973e9d341ed7afc98423", "--password", "/root/.ethereum/ropsten/passfile" ]
+  flask:
+    image: flask
+    build: ./flask/
+    container_name: flask
+    depends_on: 
+      - geth
+    ports:
+      - "80:5000"
